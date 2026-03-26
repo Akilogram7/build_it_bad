@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Please Accept Our Terms!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <audio id="bg-music" loop preload="auto">
+        <source src="images/background-ducks.mp3" type="audio/mpeg">
+    </audio>
+    <!-- ══════════════════════════════════
+         TERMS PAGE
+    ══════════════════════════════════ -->
+    <div id="terms-section">
+        <div class="bg-blob blob1"></div>
+        <div class="bg-blob blob2"></div>
+        <div class="bg-blob blob3"></div>
+        <img src="images/image.png" alt="duck" class="duck-img">
+        <div class="container">
+            <div class="card">
+                <div class="emoji-bounce">📜</div>
+                <h1>Terms & Conditions</h1>
+                <p class="subtitle">Just one tiny checkbox and you're done!</p>
+                <div class="terms-box">
+                    <p>By entering this pond, all ducks agree to abide by the Official Duck Terms & Conditions, which include but are not limited to: quacking loudly at unpredictable intervals, waddling with confidence, splashing any creature within a three‑feather radius, and demanding snacks from nearby humans. Ducks acknowledge that bread is both irresistible and nutritionally questionable, yet will continue to pursue it with enthusiasm. Any goose activity must be reported immediately, and all shiny objects discovered in the pond are considered communal duck property.</p>
+                </div>
+                <div class="checkbox-area">
+                    <label id="checkbox-label" class="checkbox-label">
+                        <input type="checkbox" id="sneaky-checkbox">
+                        <span class="label-text">I accept the terms & conditions</span>
+                    </label>
+                </div>
+                <div class="attempt-counter">
+                    Attempts: <span id="attempts">0</span>
+                </div>
+                <div class="button-row">
+                    <button class="submit-btn" id="submit-btn" disabled>Accept ✅</button>
+                    <button class="decline-btn" id="decline-btn">Decline ❌</button>
+                </div>
+            </div>
+        </div>
+        <div id="toast" class="toast">Nice try! 😈</div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         MINI GAMES SECTION
+    ══════════════════════════════════ -->
+    <div id="game-section">
+        <div id="app">
+
+            <!-- GAME 1: REVERSE WORD -->
+            <div class="g-screen" id="screen-g1">
+                <div class="g-card fade-in" id="g1-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
+                        <span class="g-badge badge-amber">Challenge 1 of 3 — Reverse It 🦆</span>
+                        <div class="timer-ring-wrap">
+                            <svg viewBox="0 0 64 64" width="64" height="64">
+                                <circle class="ring-bg"   cx="32" cy="32" r="28" />
+                                <circle class="ring-fill" cx="32" cy="32" r="28" id="g1-ring" />
+                            </svg>
+                            <div class="ring-label" id="g1-timer-num">15</div>
+                        </div>
+                    </div>
+                    <p style="font-size:13px;color:#7a7870">Type this word <strong style="color:#ef9f27">backwards</strong></p>
+                    <div class="word-display" id="g1-word"></div>
+                    <div class="hint-row" id="g1-hints"></div>
+                    <input type="text" class="g-input mono" id="g1-input"
+                        placeholder="_ _ _ _ _"
+                        oninput="g1OnInput()"
+                        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+                    <p style="font-size:11px;color:#4a4845">Clock starts when you type</p>
+                </div>
+            </div>
+
+            <!-- GAME 2: ODD DUCK -->
+            <div class="g-screen" id="screen-g2">
+                <div class="g-card fade-in" id="g2-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
+                        <span class="g-badge badge-amber">Challenge 2 of 3 — Odd Duck 🦆</span>
+                        <div class="wrong-counter">
+                            <div class="wrong-dot" id="wd0"></div>
+                            <div class="wrong-dot" id="wd1"></div>
+                            <div class="wrong-dot" id="wd2"></div>
+                        </div>
+                    </div>
+                    <div style="width:100%;display:flex;flex-direction:column;gap:5px">
+                        <div style="display:flex;justify-content:space-between;align-items:center">
+                            <span style="font-size:11px;color:#7a7870;text-transform:uppercase;letter-spacing:0.07em" id="g2-label"></span>
+                            <span style="font-size:12px;color:#7a7870"><span id="g2-timer-num">60</span>s</span>
+                        </div>
+                        <div class="timer-bar-wrap">
+                            <div class="timer-bar" id="g2-bar"></div>
+                        </div>
+                    </div>
+                    <div class="duck-grid" id="g2-grid"></div>
+                    <p style="font-size:11px;color:#4a4845">Tap the one that doesn't belong — 3 rounds, 3 strikes max</p>
+                </div>
+            </div>
+
+            <!-- GAME 3: CURSOR MAZE -->
+            <div class="g-screen" id="screen-g3">
+                <div class="g-card fade-in" style="padding:1.5rem">
+                    <div style="display:flex;justify-content:space-between;align-items:center;width:100%">
+                        <span class="g-badge badge-amber">Challenge 3 of 3 — The Maze 🦆</span>
+                        <span style="font-size:12px;color:#7a7870"><span id="g3-timer-num">—</span></span>
+                    </div>
+                    <div id="maze-wrap">
+                        <canvas id="maze-canvas" width="500" height="500"></canvas>
+                        <div class="maze-overlay visible" id="maze-overlay">
+                            <div class="big">Ready?</div>
+                            <p>Move your cursor to the green S zone.<br/>Then navigate to the red E — touch any wall and it resets.</p>
+                            <button class="g-btn-primary" style="width:auto;padding:10px 28px" onclick="startMaze()">Start maze</button>
+                        </div>
+                    </div>
+                    <p class="maze-hint" id="maze-hint">Navigate from 🟢 to 🔴 without touching the walls</p>
+                </div>
+            </div>
+
+            <!-- FINAL WIN -->
+            <div class="g-screen" id="screen-final">
+                <div class="g-card fade-in">
+                    <div style="font-size:64px;text-align:center">🏆</div>
+                    <h2 class="g-h2">You survived The Gauntlet!</h2>
+                    <p style="font-size:14px;color:#7a7870;text-align:center">Three challenges down. You've proven your worth. Welcome to the pond.</p>
+                    <button class="g-btn-primary" onclick="goBackToTerms()">Back to terms (if you dare)</button>
+                </div>
+            </div>
+
+            <!-- LOSE (shared) -->
+            <div class="g-screen" id="screen-lose">
+                <div class="g-card fade-in">
+                    <div style="font-size:64px;text-align:center" id="lose-icon">💀</div>
+                    <h2 class="g-h2" id="lose-title">You failed!</h2>
+                    <p style="font-size:14px;color:#7a7870;text-align:center" id="lose-msg">The gauntlet resets. Back to square one.</p>
+                    <button class="g-btn-primary" onclick="goBackToTerms()">Back to terms</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
